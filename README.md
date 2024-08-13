@@ -1,5 +1,5 @@
-# Building a face detector with OpenCV in C++
-
+# Building a face detector with OpenCV in C++ for Qualcomm's QRB5165 SOM following bewagner's blog post
+https://github.com/bewagner
 [![Build Status](https://travis-ci.com/bewagner/visuals.svg?branch=blog-post-1)](https://travis-ci.com/bewagner/visuals)
 
 Here you find the code for my [blog post](http://bewagner.github.io/programming/2020/04/12/building-a-face-detector-with-opencv-in-cpp/) on building a face detector with OpenCV. 
