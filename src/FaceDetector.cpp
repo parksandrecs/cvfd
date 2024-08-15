@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(300), input_image_width_(300),
+FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(640), input_image_width_(480),
                                scale_factor_(1.0), mean_values_({104., 177.0, 123.0}) {
 
 // Note: The varibles MODEL_CONFIGURATION_FILE and MODEL_WEIGHTS_FILE are passed in via cmake
