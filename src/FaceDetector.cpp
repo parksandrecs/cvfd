@@ -6,8 +6,6 @@
 #include <string>
 #include <FaceDetector.h>
 #include <opencv4/opencv2/opencv.hpp>
-#include <iostream>
-using namespace std;
 
 FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(640), input_image_width_(480),
                                scale_factor_(1.0), mean_values_({104., 177.0, 123.0}) {
@@ -46,7 +44,6 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
 
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
     }
-    cout << "face_detected";
     return faces;
 }
 
