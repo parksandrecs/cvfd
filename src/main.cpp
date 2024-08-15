@@ -148,7 +148,7 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
-        cv::Mat croppedFace;
+        cv::Mat croppedFrame;
         frame(rectangles).copyTo(croppedFrame);
         cv::imshow( "Cropped Image",  croppedFrame);
 
@@ -161,6 +161,7 @@ void codeThreadProcessV(GoblinData &data) {
         // Don't forget to unmap the buffer and unref the sample
         gst_buffer_unmap(buffer, &m);
         gst_sample_unref(sample);
+
         if (27 == key)
             exit(0);
     }
