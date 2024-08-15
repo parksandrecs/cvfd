@@ -148,7 +148,7 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
-        cv::rectangle(frame, rectangles, color, 4);
+        cv::Mat croppedFrame = frame(rectangles);
 
         //for(const auto & r : rectangles){
             //cv::rectangle(frame, r, color, 4);
