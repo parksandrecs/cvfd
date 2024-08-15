@@ -25,7 +25,6 @@ FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(6
 }
 
 std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame) {
-    cout << "face_detected";
     cv::Mat input_blob = cv::dnn::blobFromImage(frame, scale_factor_, cv::Size(input_image_width_, input_image_height_),
                                                 mean_values_, false, false);
     network_.setInput(input_blob, "data");
@@ -47,7 +46,7 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
 
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
     }
-
+    cout << "face_detected";
     return faces;
 }
 
