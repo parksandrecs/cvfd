@@ -43,10 +43,14 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
         int x_right_top = static_cast<int>(detection_matrix.at<float>(i, 5) * frame.cols);
         int y_right_top = static_cast<int>(detection_matrix.at<float>(i, 6) * frame.rows);
 
-        cv::Mat croppedImage = frame(cv::Rect(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom)));
+        //cv::Mat croppedImage = frame(cv::Rect(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom)));
         cout << "hi" << endl;
-        cv::imwrite("../../images/0.jpg", frame);
-        cv::imshow("frame", frame);
+        //cv::imwrite("../../images/0.jpg", frame);
+        cv::Mat ROI(frame, cv::Rect(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom)));
+        cv::Mat croppedImage;
+        // Copy the data into new matrix
+        ROI.copyTo(croppedImage);
+        cv::imwrite("../../images/0.jpg", croppedImage);
 
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
     }
