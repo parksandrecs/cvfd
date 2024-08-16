@@ -6,6 +6,7 @@
 #include <string>
 #include <FaceDetector.h>
 #include <opencv4/opencv2/opencv.hpp>
+using namespace std;
 
 FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(640), input_image_width_(480),
                                scale_factor_(1.0), mean_values_({104., 177.0, 123.0}) {
