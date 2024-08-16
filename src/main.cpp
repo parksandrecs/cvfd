@@ -146,20 +146,18 @@ void codeThreadProcessV(GoblinData &data) {
         FaceDetector face_detector;
         // Wrap the raw data in OpenCV frame and show on screen
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
+
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
-
-        for(const auto & r : rectangles){
-            cv::rectangle(frame, r, color, 4);
-        }
+        //for(const auto & r : rectangles){
+            //cv::rectangle(frame, r, color, 4);
+        //}
         //cv::imshow("frame", frame);
-        cv::imwrite("../../images/0.jpg", frame);
         int key = cv::waitKey(1);
 
         // Don't forget to unmap the buffer and unref the sample
         gst_buffer_unmap(buffer, &m);
         gst_sample_unref(sample);
-
         if (27 == key)
             exit(0);
     }
