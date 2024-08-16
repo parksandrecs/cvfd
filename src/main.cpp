@@ -153,6 +153,7 @@ void codeThreadProcessV(GoblinData &data) {
             //cv::rectangle(frame, r, color, 4);
         //}
         //cv::imshow("frame", frame);
+        cv::imwrite("../../images/0.jpg", frame);
         int key = cv::waitKey(1);
 
         // Don't forget to unmap the buffer and unref the sample
