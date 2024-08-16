@@ -45,12 +45,13 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
 
         cv::Mat croppedImage = frame(cv::Rect(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom)));
         cout << "hi" << endl;
-        cv::waitKey(0);
         cout << "bye" << endl;
-        cv::imwrite("../../images/0.jpg", croppedImage);
+        cv::imwrite("../../images/0.jpg", frame);
 
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
     }
+
+    
     return faces;
 }
 
