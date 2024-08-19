@@ -155,9 +155,12 @@ void codeThreadProcessV(GoblinData &data) {
             cv::Mat ROI(frame,r);
             cv::Mat croppedImage;
             ROI.copyTo(croppedImage);
-            cv::imwrite("../../images/" + std::to_string(n) +  ".jpg", croppedImage);
-            //cv::rectangle(frame, r, color, 4);
-            n++;
+            if(!croppedImage.empty())
+            {
+                cv::imwrite("../../images/" + std::to_string(n) +  ".jpg", croppedImage);
+                //cv::rectangle(frame, r, color, 4);
+                n++;
+            }  
         }
         //cv::imwrite("../../images/0.jpg", frame);
         int key = cv::waitKey(1);
