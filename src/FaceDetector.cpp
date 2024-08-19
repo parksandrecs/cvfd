@@ -49,7 +49,7 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
     }
 
     //cout << faces.back() << endl;
-
+    
     return faces;
 }
 
