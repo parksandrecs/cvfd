@@ -153,7 +153,7 @@ void codeThreadProcessV(GoblinData &data) {
             cv::Mat ROI(frame,r);
             cv::Mat croppedImage;
             ROI.copyTo(croppedImage);
-            cv::imwrite("../../images/0.jpg", ROI);
+            cv::imwrite("../../images/0.jpg", croppedImage);
             //cv::rectangle(frame, r, color, 4);
         }
         //cv::imwrite("../../images/0.jpg", frame);
