@@ -150,13 +150,14 @@ void codeThreadProcessV(GoblinData &data) {
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
         int n = 0;
-        for(const auto & r : rectangles){
+        for(const auto & r : rectangles)
+        {
             cv::Mat ROI(frame,r);
             cv::Mat croppedImage;
             ROI.copyTo(croppedImage);
             cv::imwrite("../../images/" + std::to_string(n) +  ".jpg", croppedImage);
             //cv::rectangle(frame, r, color, 4);
-            n++
+            n++;
         }
         //cv::imwrite("../../images/0.jpg", frame);
         int key = cv::waitKey(1);
