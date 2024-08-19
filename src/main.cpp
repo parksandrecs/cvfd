@@ -147,9 +147,9 @@ void codeThreadProcessV(GoblinData &data) {
         // Wrap the raw data in OpenCV frame and show on screen
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
 
+        int n = 0;
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
-        int n = 0;
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
