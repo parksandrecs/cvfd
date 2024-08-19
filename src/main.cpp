@@ -153,7 +153,7 @@ void codeThreadProcessV(GoblinData &data) {
             cv::Mat ROI(frame,r);
             cv::Mat croppedImage;
             ROI.copyTo(croppedImage);
-            cv::imwrite("../../images/0.jpg", frame);
+            cv::imwrite("../../images/0.jpg", r);
             //cv::rectangle(frame, r, color, 4);
         }
         //cv::imwrite("../../images/0.jpg", frame);
@@ -168,7 +168,8 @@ void codeThreadProcessV(GoblinData &data) {
 }
 
 //======================================================================================================================
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
     using namespace std;
     cout << "VIDEO1 : Send video to appsink, display with cv::imshow()" << endl;
 
