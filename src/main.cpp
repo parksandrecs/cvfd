@@ -129,7 +129,7 @@ void codeThreadProcessV(GoblinData &data) {
         int imW, imH;
         MY_ASSERT(gst_structure_get_int(s, "width", &imW));
         MY_ASSERT(gst_structure_get_int(s, "height", &imH));
-        cout << "Sample: W = " << imW << ", H = " << imH << endl;
+        //cout << "Sample: W = " << imW << ", H = " << imH << endl;
 
 //        cout << "sample !" << endl;
         // Process the sample
@@ -158,6 +158,7 @@ void codeThreadProcessV(GoblinData &data) {
             if(!croppedImage.empty())
             {
                 cv::imwrite("../../images/" + std::to_string(n) +  ".jpg", croppedImage);
+                cout << "Grabbed face frame: " << n << endl;
                 //cv::rectangle(frame, r, color, 4);
                 n++;
             }  
