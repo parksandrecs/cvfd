@@ -23,7 +23,8 @@ FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(6
     }
 }
 
-std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame) {
+std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame) 
+{
     cv::Mat input_blob = cv::dnn::blobFromImage(frame, scale_factor_, cv::Size(input_image_width_, input_image_height_),
                                                 mean_values_, false, false);
     network_.setInput(input_blob, "data");
@@ -38,23 +39,16 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
         if (confidence < confidence_threshold_) {
             continue;
         }
+        
         int x_left_bottom = static_cast<int>(detection_matrix.at<float>(i, 3) * frame.cols);
         int y_left_bottom = static_cast<int>(detection_matrix.at<float>(i, 4) * frame.rows);
         int x_right_top = static_cast<int>(detection_matrix.at<float>(i, 5) * frame.cols);
         int y_right_top = static_cast<int>(detection_matrix.at<float>(i, 6) * frame.rows);
 
-        //cv::Mat croppedImage = frame(cv::Rect(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom)));
-        //cout << "hi" << endl;
-        //cv::imwrite("../../images/0.jpg", frame);
-        //cv::Mat ROI(frame, cv::Rect(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom)));
-        //cv::Mat croppedImage;
-        // Copy the data into new matrix
-        //ROI.copyTo(croppedImage);
-        //cv::imwrite("../../images/0.jpg", frame);
-
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
     }
 
+    cout << faces << endl;
     
     return faces;
 }
