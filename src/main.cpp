@@ -146,7 +146,6 @@ void codeThreadProcessV(GoblinData &data) {
         FaceDetector face_detector;
         // Wrap the raw data in OpenCV frame and show on screen
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
-
         int n = 0;
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
@@ -190,7 +189,7 @@ int main(int argc, char **argv)
     // Caps in appsink are important
     // max-buffers=2 to limit the queue and RAM usage
     // sync=1 for real-time playback, try sync=0 for fun !
-    string pipeStr = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0 ! qtivtransform rotate=1 ! appsink name=mysink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
+    string pipeStr = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0 ! qtivtransform rotate=1 ! appsink name=mysink sync=1 caps=video/x-raw,format=BGR";
     GError *err = nullptr;
     data.pipeline = gst_parse_launch(pipeStr.c_str(), &err);
     checkErr(err);
