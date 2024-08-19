@@ -48,7 +48,7 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
 
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
         //cout << detection_matrix << endl;
-        cout << "blob: " << input_blob << endl;
+        //cout << "blob: " << input_blob << endl;
         cout << "detection: " << detection_matrix << endl;
     }
 
