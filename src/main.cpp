@@ -156,8 +156,9 @@ void codeThreadProcessV(GoblinData &data) {
             ROI.copyTo(croppedImage);
             if(!croppedImage.empty())
             {
-                cv::imwrite("../../images/" + std::to_string(n) +  ".jpg", croppedImage);
+                //cv::imwrite("../../images/" + std::to_string(n) +  ".jpg", croppedImage);
                 cout << "Grabbed face frame: " << n << endl;
+                cout << "Cropped image matrix: " << croppedImage << endl;
                 //cv::rectangle(frame, r, color, 4);
                 n++;
             }  
