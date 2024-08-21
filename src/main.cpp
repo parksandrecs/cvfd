@@ -147,7 +147,6 @@ void codeThreadProcessV(GoblinData &data) {
         FaceDetector face_detector;
         // Wrap the raw data in OpenCV frame and show on screen
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
-        cout << frame.size;
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
         for(const auto & r : rectangles)
@@ -157,7 +156,8 @@ void codeThreadProcessV(GoblinData &data) {
             ROI.copyTo(croppedImage);
             if(!croppedImage.empty())
             {
-                //croppedImage.reshape(1,3,260,260);
+                croppedImage.reshape(260,260);
+                cout << croppedImage.size;
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
                 // Write to file!
