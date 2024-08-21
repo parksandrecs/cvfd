@@ -8,7 +8,7 @@
 #include <opencv4/opencv2/opencv.hpp>
 using namespace std;
 
-FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(640), input_image_width_(480),
+FaceDetector::FaceDetector() : confidence_threshold_(0.5), input_image_height_(260), input_image_width_(260),
                                scale_factor_(1.0), mean_values_({104., 177.0, 123.0}) {
 
 // Note: The varibles MODEL_CONFIGURATION_FILE and MODEL_WEIGHTS_FILE are passed in via cmake
@@ -29,9 +29,9 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
                                                 mean_values_, false, false);
     network_.setInput(input_blob, "data");
     cv::Mat detection = network_.forward("detection_out");
-    cout << detection.size();
+    //cout << detection.size();
     cv::Mat detection_matrix(detection.size[2], detection.size[3], CV_32F, detection.ptr<float>());
-    cout << detection_matrix.size();
+    //cout << detection_matrix.size();
 
     std::vector<cv::Rect> faces;
 
