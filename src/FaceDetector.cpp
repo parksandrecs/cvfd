@@ -32,7 +32,7 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
     cv::Mat detection = network_.forward("detection_out");
     //cout << detection.size();
     cv::Mat detection_matrix(detection.size[2], detection.size[3], CV_32F, detection.ptr<float>());
-    //cout << detection_matrix.size();
+    cout << detection_matrix;
 
     std::vector<cv::Rect> faces;
 
