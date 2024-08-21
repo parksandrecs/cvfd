@@ -161,7 +161,7 @@ void codeThreadProcessV(GoblinData &data) {
                 cv::Mat someMatrixOfAnyType;
 
                 // Write to file!
-                file << std::to_string(n) << croppedImage;
+                file << "_" + std::to_string(n) << croppedImage;
 
                 // Close the file and release all the memory buffers
                 file.release();
