@@ -156,7 +156,7 @@ void codeThreadProcessV(GoblinData &data) {
             ROI.copyTo(croppedImage);
             if(!croppedImage.empty())
             {
-                cout << croppedImage.size()
+                cout << croppedImage.size();
                 //croppedImage.reshape(1,3,260,260);
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
