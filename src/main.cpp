@@ -154,23 +154,31 @@ void codeThreadProcessV(GoblinData &data) {
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
-            //ROI.copyTo(croppedImage);
             if(!ROI.empty())
             {
+                //grabbing face from img and resizing it to swXsh
                 cv::Mat croppedImage;
                 cv::resize(ROI, croppedImage, cv::Size(sw,sh), cv::INTER_LINEAR);
+                
+                //preprocess cropped image here for enet.dlc 
                 //croppedImage.unsqueeze(0);
-                //cout << croppedImage << endl;
+                //cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI, scalefactor=1.0, cv::Size(sw,sh), cv::INTER_LINEAR,
+                  //                              mean_values_, false, false);
+                auto tensor_image = torch::from_blob(img.data, { img.rows, img.cols, img.channels() }, at::kByte);
+                tensor_image = tensor_image.permute({ 2,0,1 });
+                tensor_image.unsqueeze_(0);
+                tensor_image = tensor_image.toType(c10::kFloat).sub(127.5).mul(0.0078125);
+
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
+
                 // Write to file!
                 file << "_" + std::to_string(n) << croppedImage;
-                cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
+                cv::imwrite("../../images/" + std::to_string(n) + ".jpg", tensor_image);
 
                 // Close the file and release all the memory buffers
                 file.release();
                 cout << "Grabbed face frame: " << n << " size:"<< croppedImage.size << endl;
-                //cout << "Cropped image matrix: " << croppedImage << endl;
                 //cv::rectangle(frame, r, color, 4);
                 n++;
             }  
