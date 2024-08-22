@@ -194,7 +194,8 @@ void codeThreadProcessV(GoblinData &data) {
                 //preprocess cropped image here for enet.dlc 
                 cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false);
-                cropped_blob.copyTo(cv::Mat cropped_blob_transposed);
+                cv::Mat cropped_blob_transposed;
+                cropped_blob.copyTo(cropped_blob_transposed);
                 chw_to_hwc(cropped_blob, cropped_blob_transposed);
 
                 // Declare what you need
