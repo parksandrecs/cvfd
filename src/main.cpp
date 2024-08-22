@@ -194,15 +194,15 @@ void codeThreadProcessV(GoblinData &data) {
                 //preprocess cropped image here for enet.dlc 
                 cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false);
-                cv::Mat cropped_blob_transposed;
-                cropped_blob.copyTo(cropped_blob_transposed);
-                chw_to_hwc(cropped_blob, cropped_blob_transposed);
+                //cv::Mat cropped_blob_transposed;
+                //cropped_blob.copyTo(cropped_blob_transposed);
+                //chw_to_hwc(cropped_blob, cropped_blob_transposed);
 
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
 
                 // Write to file!
-                file << "_" + std::to_string(n) << cropped_blob_transposed;
+                file << "_" + std::to_string(n) << cropped_blob;
                 cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
 
                 // Close the file and release all the memory buffers
