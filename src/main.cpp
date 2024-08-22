@@ -105,37 +105,6 @@ void codeThreadBus(GstElement *pipeline, GoblinData &data, const std::string &pr
 }
 
 //======================================================================================================================
-/// channel manipulation methods
-void hwc_to_chw(cv::InputArray src, cv::OutputArray dst) {
-  const int src_h = src.rows();
-  const int src_w = src.cols();
-  const int src_c = src.channels();
-
-  cv::Mat hw_c = src.getMat().reshape(1, src_h * src_w);
-
-  const std::array<int,3> dims = {src_c, src_h, src_w};                         
-  dst.create(3, &dims[0], CV_MAKETYPE(src.depth(), 1));                         
-  cv::Mat dst_1d = dst.getMat().reshape(1, {src_c, src_h, src_w});              
-
-  cv::transpose(hw_c, dst_1d);                                                  
-}                                                                               
-
-void chw_to_hwc(cv::InputArray src, cv::OutputArray dst) {                      
-  const auto& src_size = src.getMat().size;                                     
-  const int src_b = src_size[0];                                                
-  const int src_c = src_size[1];                                                
-  const int src_h = src_size[2];
-  const int src_w = src_size[3];                                                 
-
-  auto c_hw = src.getMat().reshape(0, {src_b, src_c, src_h * src_w});                  
-
-  dst.create(src_b, src_h, src_w, CV_MAKETYPE(src.depth(), src_c));                    
-  cv::Mat dst_1d = dst.getMat().reshape(src_c, {src_h, src_w});                 
-
-  cv::transpose(c_hw, dst_1d);                                                  
-}
-
-//======================================================================================================================
 /// Appsink process thread
 void codeThreadProcessV(GoblinData &data) {
     using namespace std;
@@ -194,9 +163,6 @@ void codeThreadProcessV(GoblinData &data) {
                 //preprocess cropped image here for enet.dlc 
                 cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false);
-                //cv::Mat cropped_blob_transposed;
-                //cropped_blob.copyTo(cropped_blob_transposed);
-                //chw_to_hwc(cropped_blob, cropped_blob_transposed);
 
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
