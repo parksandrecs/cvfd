@@ -9,8 +9,6 @@
 
 
 #include <opencv2/opencv.hpp>
-#include <torch/torch.h>
-#include <torch/script.h>
 
 //======================================================================================================================
 /// A simple assertion function + macro
