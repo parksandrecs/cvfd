@@ -28,9 +28,7 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
     cv::Mat input_blob = cv::dnn::blobFromImage(frame, scale_factor_, cv::Size(input_image_width_, input_image_height_),
                                                 mean_values_, false, false);
     network_.setInput(input_blob, "data");
-    //cout << input_blob.shape;
     cv::Mat detection = network_.forward("detection_out");
-    //cout << detection.size();
     cv::Mat detection_matrix(detection.size[2], detection.size[3], CV_32F, detection.ptr<float>());
 
     std::vector<cv::Rect> faces;
@@ -49,13 +47,8 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
         int y_right_top = static_cast<int>(detection_matrix.at<float>(i, 6) * frame.rows);
         cout <<"[" << x_left_bottom << ","<< y_left_bottom << ","<<  x_right_top << "," << y_right_top << "]" << endl;
 
-
-
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
-        //face_matrices.emplace_back();
-        //cout << detection_matrix << endl;
-        //cout << "blob: " << input_blob << endl;
-        //cout << "detection: " << detection_matrix << endl;
+
     }
 
     
