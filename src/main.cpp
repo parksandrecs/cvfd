@@ -122,13 +122,14 @@ void hwc_to_chw(cv::InputArray src, cv::OutputArray dst) {
 
 void chw_to_hwc(cv::InputArray src, cv::OutputArray dst) {                      
   const auto& src_size = src.getMat().size;                                     
-  const int src_c = src_size[0];                                                
-  const int src_h = src_size[1];                                                
-  const int src_w = src_size[2];                                                
+  const int src_b = src_size[0];                                                
+  const int src_c = src_size[1];                                                
+  const int src_h = src_size[2];
+  const int src_w = src_size[3];                                                 
 
-  auto c_hw = src.getMat().reshape(0, {src_c, src_h * src_w});                  
+  auto c_hw = src.getMat().reshape(0, {src_b, src_c, src_h * src_w});                  
 
-  dst.create(src_h, src_w, CV_MAKETYPE(src.depth(), src_c));                    
+  dst.create(src_b, src_h, src_w, CV_MAKETYPE(src.depth(), src_c));                    
   cv::Mat dst_1d = dst.getMat().reshape(src_c, {src_h, src_w});                 
 
   cv::transpose(c_hw, dst_1d);                                                  
