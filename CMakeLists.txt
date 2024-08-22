@@ -20,6 +20,11 @@ find_package(OpenCV REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES} ${OpenCV_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
+# torch setup
+find_package(torch REQUIRED)
+target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES} ${torch_LIBS})
+target_include_directories(${PROJECT_NAME} PRIVATE include)
+
 # Introduce preprocessor variables to keep paths of asset files
 set(FACE_DETECTION_CONFIGURATION "${PROJECT_SOURCE_DIR}/assets/deploy.prototxt")
 set(FACE_DETECTION_WEIGHTS "${PROJECT_SOURCE_DIR}/assets/res10_300x300_ssd_iter_140000_fp16.caffemodel")
