@@ -149,14 +149,17 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
+        int sw = 260;
+        int sh = 260;
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
-            cv::Mat croppedImage;
-            ROI.copyTo(croppedImage);
-            if(!croppedImage.empty())
+            //ROI.copyTo(croppedImage);
+            if(!ROI.empty())
             {
-                croppedImage.unsqueeze(0);
+                cv::Mat croppedImage;
+                cv::resize(ROI, croppedImage, Size(sw,sh)INTER_LINEAR)
+                //croppedImage.unsqueeze(0);
                 //cout << croppedImage << endl;
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
@@ -165,7 +168,7 @@ void codeThreadProcessV(GoblinData &data) {
 
                 // Close the file and release all the memory buffers
                 file.release();
-                cout << "Grabbed face frame: " << n << endl;
+                cout << "Grabbed face frame: " << n << " size:"<< croppedImage.size << endl;
                 //cout << "Cropped image matrix: " << croppedImage << endl;
                 //cv::rectangle(frame, r, color, 4);
                 n++;
