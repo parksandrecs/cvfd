@@ -158,7 +158,7 @@ void codeThreadProcessV(GoblinData &data) {
             if(!ROI.empty())
             {
                 cv::Mat croppedImage;
-                cv::resize(ROI, croppedImage, Size(sw,sh)INTER_LINEAR);
+                cv::resize(ROI, croppedImage, cv::Size(sw,sh)INTER_LINEAR);
                 //croppedImage.unsqueeze(0);
                 //cout << croppedImage << endl;
                 // Declare what you need
