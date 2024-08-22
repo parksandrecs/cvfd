@@ -164,7 +164,7 @@ void codeThreadProcessV(GoblinData &data) {
                 cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false);
                 cv::Mat cropped_blob_transposed;
-                chw_to_hwc(cropped_blob, Mat cropped_blob_transposed);
+                chw_to_hwc(cropped_blob, cropped_blob_transposed);
 
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
