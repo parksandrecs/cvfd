@@ -32,9 +32,9 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
     cv::Mat detection = network_.forward("detection_out");
     //cout << detection.size();
     cv::Mat detection_matrix(detection.size[2], detection.size[3], CV_32F, detection.ptr<float>());
-    cout << detection_matrix;
 
     std::vector<cv::Rect> faces;
+    std::vector<cv::Mat> face_matrices;
 
     for (int i = 0; i < detection_matrix.rows; i++) {
         float confidence = detection_matrix.at<float>(i, 2);
@@ -47,8 +47,12 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
         int y_left_bottom = static_cast<int>(detection_matrix.at<float>(i, 4) * frame.rows);
         int x_right_top = static_cast<int>(detection_matrix.at<float>(i, 5) * frame.cols);
         int y_right_top = static_cast<int>(detection_matrix.at<float>(i, 6) * frame.rows);
+        cout << detection_matrix[i];
+
+
 
         faces.emplace_back(x_left_bottom, y_left_bottom, (x_right_top - x_left_bottom), (y_right_top - y_left_bottom));
+        face_matrices.emplace_back()
         //cout << detection_matrix << endl;
         //cout << "blob: " << input_blob << endl;
         //cout << "detection: " << detection_matrix << endl;
@@ -56,6 +60,6 @@ std::vector<cv::Rect> FaceDetector::detect_face_rectangles(const cv::Mat &frame)
 
     
 
-    return faces;
+    return faces, detection_matrix;
 }
 
