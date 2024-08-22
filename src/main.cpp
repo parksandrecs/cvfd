@@ -190,20 +190,6 @@ void codeThreadProcessV(GoblinData &data) {
             exit(0);
 
     }
-    
-    void chw_to_hwc(cv::InputArray src, cv::OutputArray dst) {                      
-    const auto& src_size = src.getMat().size;                                     
-    const int src_c = src_size[0];                                                
-    const int src_h = src_size[1];                                                
-    const int src_w = src_size[2];                                                
-
-    auto c_hw = src.getMat().reshape(0, {src_c, src_h * src_w});                  
-
-    dst.create(src_h, src_w, CV_MAKETYPE(src.depth(), src_c));                    
-    cv::Mat dst_1d = dst.getMat().reshape(src_c, {src_h, src_w});                 
-
-    cv::transpose(c_hw, dst_1d);                                                  
-    }
 }
 
 //======================================================================================================================
