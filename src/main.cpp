@@ -162,7 +162,7 @@ void codeThreadProcessV(GoblinData &data) {
                 
                 //preprocess cropped image here for enet.dlc 
                 //croppedImage.unsqueeze(0);
-                cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI, scalefactor=1.0, cv::Size(sw,sh), cv::INTER_LINEAR,
+                cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false, false);
                 //auto tensor_image = torch::from_blob(img.data, { img.rows, img.cols, img.channels() }, at::kByte);
                 //tensor_image = tensor_image.permute({ 2,0,1 });
