@@ -150,8 +150,8 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
-        int sw = 261;
-        int sh = 261;
+        int sw = 260;
+        int sh = 260;
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
@@ -164,8 +164,7 @@ void codeThreadProcessV(GoblinData &data) {
                 //preprocess cropped image here for enet.dlc 
                 cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false);
-
-                cv::normalize(cropped_blob,cropped_blob,0,255, CV_IMAX, CV_8U);
+                xt::xarrray<double>(cropped_blob);
                 std::vector<int> order = {0, 2, 3, 1};
                 transposeND(cropped_blob, order, cropped_blob);
 
