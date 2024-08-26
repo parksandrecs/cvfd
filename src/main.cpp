@@ -11,6 +11,10 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
 
+#include "xtensor/xarray.hpp"
+#include "xtensor/xio.hpp"
+#include "xtensor/xview.hpp"
+
 //======================================================================================================================
 /// A simple assertion function + macro
 inline void myAssert(bool b, const std::string &s = "MYASSERT ERROR !") {
