@@ -17,7 +17,7 @@ include_directories( ${GST_INCLUDE_DIRS}  )
 
 # OpenCV setup
 find_package(OpenCV REQUIRED)
-target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES} ${OpenCV_LIBS} xtensor xtensor::optimize xtensor::use_xsimd) 
+target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES} ${OpenCV_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
 
