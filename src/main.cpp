@@ -165,7 +165,7 @@ void codeThreadProcessV(GoblinData &data) {
                 cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
                                              false);
 
-                cv::normalize(cropped_blob,cropped_blob,0,255, CV_MINMAX, CV_8U)
+                cv::normalize(cropped_blob,cropped_blob,0,255, CV_MINMAX, CV_8U);
                 std::vector<int> order = {0, 2, 3, 1};
                 transposeND(cropped_blob, order, cropped_blob);
 
