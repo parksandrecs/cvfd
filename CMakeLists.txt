@@ -5,8 +5,6 @@ add_executable(${PROJECT_NAME} src/main.cpp src/FaceDetector.cpp)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
 find_package(PkgConfig REQUIRED)
-find_package(xtl REQUIRED)
-find_package(xtensor REQUIRED)
 
 # GStreamer
 pkg_check_modules(GST REQUIRED gstreamer-1.0 gstreamer-audio-1.0 gstreamer-video-1.0  gstreamer-app-1.0)
