@@ -150,8 +150,8 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
         auto rectangles = face_detector.detect_face_rectangles(frame);
         cv::Scalar color(0, 105, 205);
-        int sw = 260;
-        int sh = 260;
+        int sw = 224;
+        int sh = 224;
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
