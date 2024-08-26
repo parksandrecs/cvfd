@@ -169,7 +169,7 @@ void codeThreadProcessV(GoblinData &data) {
                 transposeND(cropped_blob, order, cropped_blob);
 
                 // Declare what you need
-                cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
+                cv::FileStorage file("../../images/" + std::to_string(n) + ".raw", cv::FileStorage::WRITE);
 
                 // Write to file!
                 file << "_" + std::to_string(n) << cropped_blob;
