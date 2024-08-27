@@ -169,7 +169,7 @@ void codeThreadProcessV(GoblinData &data) {
                 cout << "Grabbed face frame: " << n << " size:"<< croppedImage.size << endl;
 
                 // calling python script to convert cropped face to .raw file
-                std::string arguments = "../../src/create_inceptionv3_raws.py -d ../../raw/ -i ../../images/ -s 260";
+                std::string arguments = "../../src/create_inceptionv3_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg -s 260";
                 std::string command = "python3 ";
                 command += arguments;
                 system(command.c_str()); 
