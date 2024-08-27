@@ -171,7 +171,7 @@ void codeThreadProcessV(GoblinData &data) {
                 for ( int i=0;i<sh;i++) {
                     for ( int j=0;j<sw;j++) {
                         for ( int k=0;k<3;k++) {
-                            raw[0][i][j][k] = cropped_blob.at<cv::Vec3b>(0,i,j,k);
+                            raw[0][i][j][k] = croppedImage.at<cv::Vec3b>(0,i,j,k);
                         }
                     }
                 } 
@@ -182,7 +182,7 @@ void codeThreadProcessV(GoblinData &data) {
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
 
                 // Write to file!
-                //file << "_" + std::to_string(n) << raw;
+                file << "_" + std::to_string(n) << raw;
                 cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
 
                 // Close the file and release all the memory buffers
