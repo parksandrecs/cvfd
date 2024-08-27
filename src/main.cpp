@@ -142,6 +142,7 @@ void codeThreadProcessV(GoblinData &data) {
         // "Map" is the helper to access raw data in the buffer
         GstBuffer *buffer = gst_sample_get_buffer(sample);
         GstMapInfo m;
+        cout << buffer << endl;
         MY_ASSERT(gst_buffer_map(buffer, &m, GST_MAP_READ));
         MY_ASSERT(m.size == imW * imH * 3);
 //        cout << "size = " << map.size << " ==? " << imW*imH*3 << endl;
@@ -153,6 +154,7 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Scalar color(0, 105, 205);
         int sw = 260;
         int sh = 260;
+        cv::Mat meanRaw
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
@@ -167,6 +169,7 @@ void codeThreadProcessV(GoblinData &data) {
                                              false);
                 std::vector<int> order = {0, 2, 3, 1};
                 transposeND(cropped_blob, order, cropped_blob);
+                
 
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n) + ".raw", cv::FileStorage::WRITE);
