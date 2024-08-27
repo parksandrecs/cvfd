@@ -182,7 +182,7 @@ void codeThreadProcessV(GoblinData &data) {
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
 
                 // Write to file!
-                file << "_" + std::to_string(n) << raw;
+                //file << "_" + std::to_string(n) << raw;
                 cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
 
                 // Close the file and release all the memory buffers
