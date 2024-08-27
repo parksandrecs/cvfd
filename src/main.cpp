@@ -167,13 +167,16 @@ void codeThreadProcessV(GoblinData &data) {
 
                 // Close the file and release all the memory buffers
                 cout << "Grabbed face frame: " << n << " size:"<< croppedImage.size << endl;
-
-                //calling python script to convert cropped face to .raw file
-                std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg -s 260";
-                std::string command = "python3 ";
-                command += arguments;
-                system(command.c_str()); 
-                 
+                if(n%5==0)
+                {
+                    //calling python script to convert cropped face to .raw file
+                    std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg -s 260";
+                    std::string command = "python3 ";
+                    command += arguments;
+                    system(command.c_str()); 
+                    cout << "created raw of " << n << endl;
+                }
+                
                 /** calling dlc model
                 std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg";
                 std::string command = "python3 ";
