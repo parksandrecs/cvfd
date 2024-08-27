@@ -4,6 +4,9 @@ project(cvfd LANGUAGES CXX)
 add_executable(${PROJECT_NAME} src/main.cpp src/FaceDetector.cpp)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
+add_executable(video3 video3.cpp)
+target_link_libraries(video3 ${GST_LIBRARIES} ${OpenCV_LIBS})
+
 find_package(PkgConfig REQUIRED)
 
 # GStreamer
