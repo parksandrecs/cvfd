@@ -171,7 +171,7 @@ void codeThreadProcessV(GoblinData &data) {
                 for ( int i=0;i<sh;i++) {
                     for ( int j=0;j<sw;j++) {
                         for ( int k=0;k<3;k++) {
-                            raw[0][i][j][k] = (cropped_blob.at<double>(0,i,j,k)-128)/128;
+                            raw[0][i][j][k] = cropped_blob.at<float>(0,i,j,k);
                         }
                     }
                 } 
