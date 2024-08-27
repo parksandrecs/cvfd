@@ -125,7 +125,8 @@ void codeThreadProcessV(GoblinData &data) {
 
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
-        while (data.flagElfStarted && !data.flagRunV) {
+        while (data.flagElfStarted && !data.flagRunV) 
+        {
             cout << "(wait)" << endl;
             this_thread::sleep_for(std::chrono::milliseconds(10));
         }
@@ -182,8 +183,15 @@ void codeThreadProcessV(GoblinData &data) {
         gst_buffer_unmap(bufferIn, &mapIn);
 
         // Modify the frame: apply photo negative to the middle 1/9 of the image
-        Mat frameMid(frame, Rect2i(imW/3, imH/3, imW/3, imH/3));
-        bitwise_not(frameMid, frameMid);
+        FaceDetector face_detector;
+
+        auto rectangles = face_detector.detect_face_rectangles(frame);
+        Scalar color(0, 105, 205);
+        for(const auto & r : rectangles){
+            rectangle(frame, r, color, 4);
+        }   
+
+
         // Create the output bufer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
         GstBuffer *bufferOut = gst_buffer_new_and_alloc(bufferSize);
