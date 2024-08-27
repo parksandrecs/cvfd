@@ -30,5 +30,5 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_CONFIGURATION=
 target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_WEIGHTS="${FACE_DETECTION_WEIGHTS}")
 
 
-add_executable(video3 video3.cpp)
+add_executable(video3 src/video3.cpp)
 target_link_libraries(video3 ${GST_LIBRARIES} ${OpenCV_LIBS})
