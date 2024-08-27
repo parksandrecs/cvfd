@@ -221,17 +221,9 @@ static void stopFeed(GstElement *source, GoblinData *data) {
 //======================================================================================================================
 int main(int argc, char **argv){
     using namespace std;
-    cout << "VIDEO3: Two pipelines, with custom video processing in the middle" << endl;
 
     // Init gstreamer
     gst_init(&argc, &argv);
-
-    if (argc != 2) {
-        cout << "Usage:\nvideo3 <video_file>" << endl;
-        return 0;
-    }
-    string fileName(argv[1]);
-    cout << "Playing file : " << fileName << endl;
 
     // Our global data
     GoblinData data;
