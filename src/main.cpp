@@ -167,15 +167,22 @@ void codeThreadProcessV(GoblinData &data) {
                                              false);
                 std::vector<int> order = {0, 2, 3, 1};
                 transposeND(cropped_blob, order, cropped_blob);
-                float raw[sh][sw][3];
-                
+                float raw[1][sh][sw][3];
+                for ( int i=0;i<sh;i++) {
+                    for ( int j=0;j<sw;j++) {
+                        for ( int k=0;k<3;k++) {
+                            raw[0][i][j][k] = (cropped_blob.at<double>(0,i,j,k)-128)/128;
+                        }
+                    }
+                } 
+                    
                 
 
                 // Declare what you need
                 cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
 
                 // Write to file!
-                file << "_" + std::to_string(n) << cropped_blob;
+                file << "_" + std::to_string(n) << raw;
                 cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
 
                 // Close the file and release all the memory buffers
