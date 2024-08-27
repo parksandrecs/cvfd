@@ -93,14 +93,14 @@ def __resize_square_to_jpg(src, dst, size,resize_type):
     return 0
 
 def convert_img(src,dest,size,resize_type):
-    print("Converting images for inception v3 network.")
+    #print("Converting images for inception v3 network.")
 
-    print("Scaling to square: " + src)
+    #print("Scaling to square: " + src)
     path, filename = os.path.split(src)
     dest_image = os.path.join(dest, filename)
     __resize_square_to_jpg(src,dest_image,size,resize_type)
 
-    print("Image mean: " + dest)
+    #print("Image mean: " + dest)
     mean_rgb=(128,128,128)
     __create_raw_incv3(dest_image,mean_rgb,128,False,False)            
 
