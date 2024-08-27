@@ -166,7 +166,6 @@ void codeThreadProcessV(GoblinData &data) {
                 cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
 
                 // Close the file and release all the memory buffers
-                file.release();
                 cout << "Grabbed face frame: " << n << " size:"<< croppedImage.size << endl;
 
                 // calling python script to convert cropped face to .raw file
