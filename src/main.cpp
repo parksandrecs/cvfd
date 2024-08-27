@@ -173,7 +173,7 @@ void codeThreadProcessV(GoblinData &data) {
                 std::string filename = "/home/abc/xyz/script.py";
                 std::string command = "python ";
                 command += filename;
-                system("pwd") 
+                system("pwd"); 
 
                 n++;
             }  
