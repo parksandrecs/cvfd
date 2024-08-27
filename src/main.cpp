@@ -153,7 +153,6 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Scalar color(0, 105, 205);
         int sw = 260;
         int sh = 260;
-        cv::Mat meanRaw;
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
@@ -168,10 +167,12 @@ void codeThreadProcessV(GoblinData &data) {
                                              false);
                 std::vector<int> order = {0, 2, 3, 1};
                 transposeND(cropped_blob, order, cropped_blob);
+                float raw[sh][sw][3];
+                
                 
 
                 // Declare what you need
-                cv::FileStorage file("../../images/" + std::to_string(n) + ".raw", cv::FileStorage::WRITE);
+                cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
 
                 // Write to file!
                 file << "_" + std::to_string(n) << cropped_blob;
