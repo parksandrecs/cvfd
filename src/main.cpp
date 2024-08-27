@@ -142,7 +142,7 @@ void codeThreadProcessV(GoblinData &data) {
         // "Map" is the helper to access raw data in the buffer
         GstBuffer *buffer = gst_sample_get_buffer(sample);
         GstMapInfo m;
-        //cout << buffer << endl;
+        cout << buffer << endl;
         MY_ASSERT(gst_buffer_map(buffer, &m, GST_MAP_READ));
         MY_ASSERT(m.size == imW * imH * 3);
 //        cout << "size = " << map.size << " ==? " << imW*imH*3 << endl;
@@ -154,7 +154,7 @@ void codeThreadProcessV(GoblinData &data) {
         cv::Scalar color(0, 105, 205);
         int sw = 260;
         int sh = 260;
-        cv::Mat meanRaw
+        cv::Mat meanRaw;
         for(const auto & r : rectangles)
         {
             cv::Mat ROI(frame,r);
