@@ -172,7 +172,7 @@ void codeThreadProcessV(GoblinData &data) {
                 std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg";
                 std::string command = "python3 ";
                 command += arguments;
-                system(command.c_str()); 
+                //system(command.c_str()); 
 
                 /** calling dlc model
                 std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg";
