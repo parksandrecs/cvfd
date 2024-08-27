@@ -158,37 +158,23 @@ void codeThreadProcessV(GoblinData &data) {
             cv::Mat ROI(frame,r);
             if(!ROI.empty())
             {
-                //grabbing face from img and resizing it to swXsh
+                // grabbing face from img and resizing it to swXsh
                 cv::Mat croppedImage;
                 cv::resize(ROI, croppedImage, cv::Size(sw,sh), cv::INTER_LINEAR);
                 
-                //preprocess cropped image here for enet.dlc 
-                cv::Mat cropped_blob = cv::dnn::blobFromImage(ROI,1,cv::Size(sw,sh), cv::INTER_LINEAR,
-                                             false);
-                std::vector<int> order = {0, 2, 3, 1};
-                transposeND(cropped_blob, order, cropped_blob);
-                float raw[1][sh][sw][3];
-                for ( int i=0;i<sh;i++) {
-                    for ( int j=0;j<sw;j++) {
-                        for ( int k=0;k<3;k++) {
-                            raw[0][i][j][k] = croppedImage.at<cv::Vec3b>(0,i,j,k);
-                        }
-                    }
-                } 
-                    
-                
-
-                // Declare what you need
-                cv::FileStorage file("../../images/" + std::to_string(n), cv::FileStorage::WRITE);
-
                 // Write to file!
-                //file << "_" + std::to_string(n) << raw;
                 cv::imwrite("../../images/" + std::to_string(n) + ".jpg", croppedImage);
 
                 // Close the file and release all the memory buffers
                 file.release();
                 cout << "Grabbed face frame: " << n << " size:"<< croppedImage.size << endl;
-                //cv::rectangle(frame, r, color, 4);
+
+                // calling python script to convert cropped face to .raw file
+                std::string filename = "/home/abc/xyz/script.py";
+                std::string command = "python ";
+                command += filename;
+                system("pwd") 
+
                 n++;
             }  
         }
