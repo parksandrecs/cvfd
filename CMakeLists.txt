@@ -4,8 +4,6 @@ project(cvfd LANGUAGES CXX)
 add_executable(${PROJECT_NAME} src/main.cpp src/FaceDetector.cpp)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
-add_executable(video3 src/video3.cpp)
-
 find_package(PkgConfig REQUIRED)
 
 # GStreamer
@@ -20,7 +18,6 @@ include_directories( ${GST_INCLUDE_DIRS}  )
 # OpenCV setup
 find_package(OpenCV REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES} ${OpenCV_LIBS})
-target_link_libraries(video3 ${GST_LIBRARIES} ${OpenCV_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
 
@@ -33,3 +30,5 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_CONFIGURATION=
 target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_WEIGHTS="${FACE_DETECTION_WEIGHTS}")
 
 
+add_executable(video3 video3.cpp)
+target_link_libraries(video3 ${GST_LIBRARIES} ${OpenCV_LIBS})
