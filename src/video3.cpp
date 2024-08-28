@@ -1,7 +1,7 @@
 //
 // Created by IT-JIM 
 // VIDEO3: Two pipelines, with custom video processing in the middle, no audio
-
+#include "FaceDetector.h"
 #include <iostream>
 #include <string>
 #include <thread>
@@ -123,7 +123,6 @@ void codeThreadProcessV(GoblinData &data) {
     using namespace std;
     using namespace cv;
 
-    FaceDetector face_detector;
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
         while (data.flagElfStarted && !data.flagRunV) 
@@ -182,7 +181,7 @@ void codeThreadProcessV(GoblinData &data) {
         // Clone to be safe, we don't want to modify the input buffer
         Mat frame = Mat(imH, imW, CV_8UC3, (void *) mapIn.data).clone();
         gst_buffer_unmap(bufferIn, &mapIn);
-
+        FaceDetector face_detector;
         // Modify the frame: apply photo negative to the middle 1/9 of the image
         auto rectangles = face_detector.detect_face_rectangles(frame);
         Scalar color(0, 105, 205);
