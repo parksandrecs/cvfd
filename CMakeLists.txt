@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(cvfd LANGUAGES CXX)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/FaceDetector.cpp)
+add_executable(${PROJECT_NAME} src/video3.cpp src/FaceDetector.cpp)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
 find_package(PkgConfig REQUIRED)
@@ -30,5 +30,4 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_CONFIGURATION=
 target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_WEIGHTS="${FACE_DETECTION_WEIGHTS}")
 
 
-add_executable(video3 src/video3.cpp src/FaceDetector.cpp)
-target_compile_features(video3 PUBLIC cxx_std_14)
+
