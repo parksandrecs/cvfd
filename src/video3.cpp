@@ -189,10 +189,14 @@ void codeThreadProcessV(GoblinData &data) {
         // Modify the frame: detect faces
         auto rectangles = face_detector.detect_face_rectangles(frame);
         Scalar color(0, 105, 205);
-        for(const auto & r : rectangles)
+        if(n%5==0 | n == 0)
         {
-            rectangle(frame, r, color, 4);
-        }   
+            for(const auto & r : rectangles)
+            {
+                rectangle(frame, r, color, 4);
+            }   
+
+        }
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
         GstBuffer *bufferOut = gst_buffer_new_and_alloc(bufferSize);
