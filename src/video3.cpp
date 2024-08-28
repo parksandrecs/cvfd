@@ -174,6 +174,7 @@ void codeThreadProcessV(GoblinData &data) {
         // Copy data from the sample to cv::Mat()
         GstBuffer *bufferIn = gst_sample_get_buffer(sample);
         GstMapInfo mapIn;
+        FaceDetector face_detector;
         myAssert(gst_buffer_map(bufferIn, &mapIn, GST_MAP_READ));
         myAssert(mapIn.size == imW * imH * 3);
         // Don't forget the Timestamp
@@ -183,8 +184,6 @@ void codeThreadProcessV(GoblinData &data) {
         gst_buffer_unmap(bufferIn, &mapIn);
 
         // Modify the frame: apply photo negative to the middle 1/9 of the image
-        FaceDetector face_detector;
-
         auto rectangles = face_detector.detect_face_rectangles(frame);
         Scalar color(0, 105, 205);
         for(const auto & r : rectangles){
