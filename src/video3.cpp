@@ -1,7 +1,7 @@
 //
 // Created by IT-JIM 
 // VIDEO3: Two pipelines, with custom video processing in the middle, no audio
-
+#include "FaceDetector.h"
 #include <iostream>
 #include <string>
 #include <thread>
@@ -125,7 +125,8 @@ void codeThreadProcessV(GoblinData &data) {
 
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
-        while (data.flagElfStarted && !data.flagRunV) {
+        while (data.flagElfStarted && !data.flagRunV) 
+        {
             cout << "(wait)" << endl;
             this_thread::sleep_for(std::chrono::milliseconds(10));
         }
@@ -180,16 +181,25 @@ void codeThreadProcessV(GoblinData &data) {
         // Clone to be safe, we don't want to modify the input buffer
         Mat frame = Mat(imH, imW, CV_8UC3, (void *) mapIn.data).clone();
         gst_buffer_unmap(bufferIn, &mapIn);
-
+        
+        FaceDetector face_detector;
         // Modify the frame: apply photo negative to the middle 1/9 of the image
-        Mat frameMid(frame, Rect2i(imW/3, imH/3, imW/3, imH/3));
-        bitwise_not(frameMid, frameMid);
-        // Create the output bufer and send it to elfSrc
+        auto rectangles = face_detector.detect_face_rectangles(frame);
+        Scalar color(0, 105, 205);
+        for(const auto & r : rectangles)
+        {
+            rectangle(frame, r, color, 4);
+        }   
+
+
+        // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
         GstBuffer *bufferOut = gst_buffer_new_and_alloc(bufferSize);
         GstMapInfo mapOut;
         gst_buffer_map(bufferOut, &mapOut, GST_MAP_WRITE);
         memcpy(mapOut.data, frame.data, bufferSize);
+        int key = cv::waitKey(1);
+
         gst_buffer_unmap(bufferOut, &mapOut);
         // Copy the input packet timestamp
         bufferOut->pts = pts;
