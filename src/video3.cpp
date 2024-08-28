@@ -1,7 +1,7 @@
 //
 // Created by IT-JIM 
 // VIDEO3: Two pipelines, with custom video processing in the middle, no audio
-#include "FaceDetector.h"
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -125,8 +125,7 @@ void codeThreadProcessV(GoblinData &data) {
 
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
-        while (data.flagElfStarted && !data.flagRunV) 
-        {
+        while (data.flagElfStarted && !data.flagRunV) {
             cout << "(wait)" << endl;
             this_thread::sleep_for(std::chrono::milliseconds(10));
         }
@@ -181,25 +180,16 @@ void codeThreadProcessV(GoblinData &data) {
         // Clone to be safe, we don't want to modify the input buffer
         Mat frame = Mat(imH, imW, CV_8UC3, (void *) mapIn.data).clone();
         gst_buffer_unmap(bufferIn, &mapIn);
-        
-        FaceDetector face_detector;
+
         // Modify the frame: apply photo negative to the middle 1/9 of the image
-        auto rectangles = face_detector.detect_face_rectangles(frame);
-        Scalar color(0, 105, 205);
-        for(const auto & r : rectangles)
-        {
-            rectangle(frame, r, color, 4);
-        }   
-
-
-        // Create the output buffer and send it to elfSrc
+        Mat frameMid(frame, Rect2i(imW/3, imH/3, imW/3, imH/3));
+        bitwise_not(frameMid, frameMid);
+        // Create the output bufer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
         GstBuffer *bufferOut = gst_buffer_new_and_alloc(bufferSize);
         GstMapInfo mapOut;
         gst_buffer_map(bufferOut, &mapOut, GST_MAP_WRITE);
         memcpy(mapOut.data, frame.data, bufferSize);
-        int key = cv::waitKey(1);
-
         gst_buffer_unmap(bufferOut, &mapOut);
         // Copy the input packet timestamp
         bufferOut->pts = pts;
@@ -231,9 +221,17 @@ static void stopFeed(GstElement *source, GoblinData *data) {
 //======================================================================================================================
 int main(int argc, char **argv){
     using namespace std;
+    cout << "VIDEO3: Two pipelines, with custom video processing in the middle" << endl;
 
     // Init gstreamer
     gst_init(&argc, &argv);
+
+    if (argc != 2) {
+        cout << "Usage:\nvideo3 <video_file>" << endl;
+        return 0;
+    }
+    string fileName(argv[1]);
+    cout << "Playing file : " << fileName << endl;
 
     // Our global data
     GoblinData data;
@@ -244,7 +242,8 @@ int main(int argc, char **argv){
     // GStreamer can run as many pipelines as you wish (in different threads)
 
     // Set up GOBLIN (input) pipeline
-    string pipeStrGoblin = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0 ! qtivtransform rotate=1 ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
+    string pipeStrGoblin = "filesrc location=" + fileName +
+                     " ! decodebin ! videoconvert ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
     GError *err = nullptr;
     data.goblinPipeline = gst_parse_launch(pipeStrGoblin.c_str(), &err);
     checkErr(err);
@@ -254,7 +253,7 @@ int main(int argc, char **argv){
 
     // Set up ELF (output pipeline)
     // Note that appsrc does not have full caps yet as usual
-    string pipeStrElf = "appsrc name=elf_src format=time caps=video/x-raw,format=BGR ! videoconvert ! waylandsink";
+    string pipeStrElf = "appsrc name=elf_src format=time caps=video/x-raw,format=BGR ! videoconvert ! autovideosink sync=1";
     data.elfPipeline = gst_parse_launch(pipeStrElf.c_str(), &err);
     checkErr(err);
     MY_ASSERT(data.elfPipeline);
