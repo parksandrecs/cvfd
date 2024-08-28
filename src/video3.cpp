@@ -13,6 +13,8 @@
 #include <gst/app/gstappsink.h>
 
 #include <opencv2/opencv.hpp>
+/// Global file counter
+    int n = 0;
 
 
 //======================================================================================================================
@@ -42,8 +44,6 @@ struct GoblinData {
     GstElement *elfPipeline = nullptr;
     GstElement *elfSrcV = nullptr;
 
-    /// Global file counter
-    int n = 0;
     /// Appsrc flag: when it's true, send the frames, otherwise wait
     std::atomic_bool flagRunV{false};
     /// True if the elf pipeline has initialized and started splaying
