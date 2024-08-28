@@ -31,4 +31,4 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_WEIGHTS="${FAC
 
 
 add_executable(video3 src/video3.cpp src/FaceDetector.cpp)
-target_link_libraries(video3 ${GST_LIBRARIES} ${OpenCV_LIBS})
+target_compile_features(video3 PUBLIC cxx_std_14)
