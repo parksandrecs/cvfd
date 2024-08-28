@@ -301,7 +301,6 @@ int main(int argc, char **argv){
     threadProcessV.join();
     threadBusGoblin.join();
     threadBusElf.join();
-    threadRaws.join();
 
     // Destroy the two pipelines
     gst_element_set_state(data.goblinPipeline, GST_STATE_NULL);
