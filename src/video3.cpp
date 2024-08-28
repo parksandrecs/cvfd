@@ -183,7 +183,7 @@ void codeThreadProcessV(GoblinData &data) {
         gst_buffer_unmap(bufferIn, &mapIn);
         
         FaceDetector face_detector;
-        // Modify the frame: apply photo negative to the middle 1/9 of the image
+        // Modify the frame: detect faces
         auto rectangles = face_detector.detect_face_rectangles(frame);
         Scalar color(0, 105, 205);
         for(const auto & r : rectangles)
@@ -206,7 +206,7 @@ void codeThreadProcessV(GoblinData &data) {
         GstFlowReturn ret = gst_app_src_push_buffer(GST_APP_SRC(data.elfSrcV), bufferOut);
     }
     // Send EOS to ELF
-    gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
+    //gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
 }
 //======================================================================================================================
 /// Callback called when the pipeline wants more data
