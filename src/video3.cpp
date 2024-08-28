@@ -129,6 +129,7 @@ void codeThreadProcessV(GoblinData &data) {
         {
             cout << "(wait)" << endl;
             this_thread::sleep_for(std::chrono::milliseconds(10));
+             continue;
         }
 
         // Check for Goblin EOS
