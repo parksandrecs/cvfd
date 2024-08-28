@@ -181,6 +181,7 @@ void codeThreadProcessV(GoblinData &data) {
         // Clone to be safe, we don't want to modify the input buffer
         Mat frame = Mat(imH, imW, CV_8UC3, (void *) mapIn.data).clone();
         gst_buffer_unmap(bufferIn, &mapIn);
+        gst_sample_unref(sample);
         
         /** 
         // Modify the frame: detect faces
@@ -243,7 +244,7 @@ int main(int argc, char **argv){
     // GStreamer can run as many pipelines as you wish (in different threads)
 
     // Set up GOBLIN (input) pipeline
-    string pipeStrGoblin = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=20/1, camera=0 ! qtivtransform rotate=1 ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
+    string pipeStrGoblin = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0 ! qtivtransform rotate=1 ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
     GError *err = nullptr;
     data.goblinPipeline = gst_parse_launch(pipeStrGoblin.c_str(), &err);
     checkErr(err);
