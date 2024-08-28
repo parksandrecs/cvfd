@@ -201,6 +201,7 @@ void codeThreadProcessV(GoblinData &data) {
         gst_buffer_map(bufferOut, &mapOut, GST_MAP_WRITE);
         memcpy(mapOut.data, frame.data, bufferSize);
         gst_buffer_unmap(bufferOut, &mapOut);
+        gst_sample_unref(sample);
         // Copy the input packet timestamp
         bufferOut->pts = pts;
         GstFlowReturn ret = gst_app_src_push_buffer(GST_APP_SRC(data.elfSrcV), bufferOut);
