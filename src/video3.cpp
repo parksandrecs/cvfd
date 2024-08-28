@@ -190,6 +190,7 @@ void codeThreadProcessV(GoblinData &data) {
         {
             rectangle(frame, r, color, 4);
         }   
+        int key = cv::waitKey(1);
 
 
         // Create the output buffer and send it to elfSrc
@@ -198,15 +199,13 @@ void codeThreadProcessV(GoblinData &data) {
         GstMapInfo mapOut;
         gst_buffer_map(bufferOut, &mapOut, GST_MAP_WRITE);
         memcpy(mapOut.data, frame.data, bufferSize);
-        int key = cv::waitKey(1);
-
         gst_buffer_unmap(bufferOut, &mapOut);
         // Copy the input packet timestamp
         bufferOut->pts = pts;
         GstFlowReturn ret = gst_app_src_push_buffer(GST_APP_SRC(data.elfSrcV), bufferOut);
     }
     // Send EOS to ELF
-    //gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
+    gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
 }
 //======================================================================================================================
 /// Callback called when the pipeline wants more data
