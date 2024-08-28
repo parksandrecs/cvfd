@@ -123,7 +123,7 @@ void codeThreadProcessV(GoblinData &data) {
     using namespace std;
     using namespace cv;
     int n = 1;
-    FaceDetector face_detector;
+
 
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
@@ -187,10 +187,11 @@ void codeThreadProcessV(GoblinData &data) {
         
         
         // Modify the frame: detect faces
-        auto rectangles = face_detector.detect_face_rectangles(frame);
-        Scalar color(0, 105, 205);
         if(n%5==0 | n == 0)
         {
+            auto rectangles = face_detector.detect_face_rectangles(frame);
+            Scalar color(0, 105, 205);
+            FaceDetector face_detector;
             for(const auto & r : rectangles)
             {
                 rectangle(frame, r, color, 4);
