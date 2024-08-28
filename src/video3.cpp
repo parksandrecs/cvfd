@@ -187,7 +187,8 @@ void codeThreadProcessV(GoblinData &data) {
         gst_sample_unref(sample);
         
         // Write to file!
-                cv::imwrite("../../images/" + std::to_string(n) + ".jpg", frame);
+        cv::imwrite("../../images/" + std::to_string(n) + ".jpg", frame);
+        cout << "created jpg of " << n << endl;
 
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
@@ -217,6 +218,7 @@ void codeThreadCreateRaws() {
         std::string command = "python3 ";
         command += arguments;
         system(command.c_str()); 
+        cout << "created raw of " << i << endl;
         i++;
 
     }
@@ -297,6 +299,10 @@ int main(int argc, char **argv){
         codeThreadBus(data.elfPipeline, data, "ELF");
     });
 
+    //thread to create raw inputs for dlc networks
+    thread threadRaws(
+        codeThreadCreateRaws();
+    );
     // Wait for threads
     threadProcessV.join();
     threadBusGoblin.join();
