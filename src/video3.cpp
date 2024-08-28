@@ -130,7 +130,7 @@ void codeThreadProcessV(GoblinData &data) {
         while (data.flagElfStarted && !data.flagRunV) 
         {
             cout << "(wait)" << endl;
-            this_thread::sleep_for(std::chrono::milliseconds(100));
+            this_thread::sleep_for(std::chrono::milliseconds(10));
         }
 
         // Check for Goblin EOS
