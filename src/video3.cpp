@@ -42,6 +42,8 @@ struct GoblinData {
     GstElement *elfPipeline = nullptr;
     GstElement *elfSrcV = nullptr;
 
+    /// Global file counter
+    std::int n = 0;
     /// Appsrc flag: when it's true, send the frames, otherwise wait
     std::atomic_bool flagRunV{false};
     /// True if the elf pipeline has initialized and started splaying
@@ -122,7 +124,6 @@ void codeThreadBus(GstElement *pipeline, GoblinData &data, const std::string &pr
 void codeThreadProcessV(GoblinData &data) {
     using namespace std;
     using namespace cv;
-    int n = 0;
 
 
     for (;;) {
@@ -185,16 +186,8 @@ void codeThreadProcessV(GoblinData &data) {
         gst_buffer_unmap(bufferIn, &mapIn);
         gst_sample_unref(sample);
         
-        
-        // Modify the frame: detect faces
-
-        FaceDetector face_detector;
-        auto rectangles = face_detector.detect_face_rectangles(frame);
-        Scalar color(0, 105, 205);
-        for(const auto & r : rectangles)
-        {
-            rectangle(frame, r, color, 4);
-        }   
+        // Write to file!
+                cv::imwrite("../../images/" + std::to_string(n) + ".jpg", frame);
 
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
@@ -211,6 +204,26 @@ void codeThreadProcessV(GoblinData &data) {
     // Send EOS to ELF
     gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
 }
+
+//======================================================================================================================
+/// Take frames from file and converts it to raw format to feed to dlc networks
+void codeThreadCreateRaws() {
+
+    int i = 0;
+    while(i<n)
+    {
+        //calling python script to convert cropped face to .raw file
+        std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(i) + ".jpg -s 260";
+        std::string command = "python3 ";
+        command += arguments;
+        system(command.c_str()); 
+        i++;
+
+    }
+    
+
+}
+
 //======================================================================================================================
 /// Callback called when the pipeline wants more data
 static void startFeed(GstElement *source, guint size, GoblinData *data) {
