@@ -210,7 +210,7 @@ void codeThreadProcessV(GoblinData &data) {
 /// Take frames from file and converts it to raw format to feed to dlc networks
 static void codeThreadCreateRaws() {
     using namespace std;
-    int i = 0;
+    int i = n;
 
         //calling python script to convert cropped face to .raw file
         std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(i) + ".jpg -s 260";
