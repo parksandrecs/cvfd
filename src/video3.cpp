@@ -208,7 +208,7 @@ void codeThreadProcessV(GoblinData &data) {
 
 //======================================================================================================================
 /// Take frames from file and converts it to raw format to feed to dlc networks
-void codeThreadCreateRaws() {
+static void codeThreadCreateRaws() {
     using namespace std;
     int i = 0;
 
@@ -219,10 +219,6 @@ void codeThreadCreateRaws() {
         system(command.c_str()); 
         cout << "created raw of " << i << endl;
         i++;
-
-
-    
-
 }
 
 //======================================================================================================================
