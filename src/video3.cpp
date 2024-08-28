@@ -221,17 +221,6 @@ static void stopFeed(GstElement *source, GoblinData *data) {
 //======================================================================================================================
 int main(int argc, char **argv){
     using namespace std;
-    cout << "VIDEO3: Two pipelines, with custom video processing in the middle" << endl;
-
-    // Init gstreamer
-    gst_init(&argc, &argv);
-
-    if (argc != 2) {
-        cout << "Usage:\nvideo3 <video_file>" << endl;
-        return 0;
-    }
-    string fileName(argv[1]);
-    cout << "Playing file : " << fileName << endl;
 
     // Our global data
     GoblinData data;
@@ -242,8 +231,7 @@ int main(int argc, char **argv){
     // GStreamer can run as many pipelines as you wish (in different threads)
 
     // Set up GOBLIN (input) pipeline
-    string pipeStrGoblin = "filesrc location=" + fileName +
-                     " ! decodebin ! videoconvert ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
+    string pipeStrGoblin = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0  ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
     GError *err = nullptr;
     data.goblinPipeline = gst_parse_launch(pipeStrGoblin.c_str(), &err);
     checkErr(err);
@@ -253,7 +241,7 @@ int main(int argc, char **argv){
 
     // Set up ELF (output pipeline)
     // Note that appsrc does not have full caps yet as usual
-    string pipeStrElf = "appsrc name=elf_src format=time caps=video/x-raw,format=BGR ! videoconvert ! autovideosink sync=1";
+    string pipeStrElf = "appsrc name=elf_src format=time caps=video/x-raw,format=BGR ! videoconvert ! waylandsink";
     data.elfPipeline = gst_parse_launch(pipeStrElf.c_str(), &err);
     checkErr(err);
     MY_ASSERT(data.elfPipeline);
