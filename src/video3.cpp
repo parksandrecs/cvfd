@@ -129,7 +129,6 @@ void codeThreadProcessV(GoblinData &data) {
         {
             cout << "(wait)" << endl;
             this_thread::sleep_for(std::chrono::milliseconds(10));
-             continue;
         }
 
         // Check for Goblin EOS
@@ -191,7 +190,6 @@ void codeThreadProcessV(GoblinData &data) {
         {
             rectangle(frame, r, color, 4);
         }   
-        int key = cv::waitKey(1);
 
 
         // Create the output buffer and send it to elfSrc
