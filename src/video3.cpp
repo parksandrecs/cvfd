@@ -122,7 +122,7 @@ void codeThreadBus(GstElement *pipeline, GoblinData &data, const std::string &pr
 void codeThreadProcessV(GoblinData &data) {
     using namespace std;
     using namespace cv;
-    int n = 0;
+    int n = 1;
     FaceDetector face_detector;
 
     for (;;) {
@@ -207,7 +207,7 @@ void codeThreadProcessV(GoblinData &data) {
         // Copy the input packet timestamp
         bufferOut->pts = pts;
         GstFlowReturn ret = gst_app_src_push_buffer(GST_APP_SRC(data.elfSrcV), bufferOut);
-        n++;
+        //n++;
     }
     // Send EOS to ELF
     gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
