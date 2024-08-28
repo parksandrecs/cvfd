@@ -192,8 +192,8 @@ void codeThreadProcessV(GoblinData &data) {
         {
             rectangle(frame, r, color, 4);
         }   
-        rectangles = null;
-        
+        rectangles.clear();
+
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
         GstBuffer *bufferOut = gst_buffer_new_and_alloc(bufferSize);
