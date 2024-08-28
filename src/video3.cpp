@@ -43,7 +43,7 @@ struct GoblinData {
     GstElement *elfSrcV = nullptr;
 
     /// Global file counter
-    std::int n = 0;
+    int n = 0;
     /// Appsrc flag: when it's true, send the frames, otherwise wait
     std::atomic_bool flagRunV{false};
     /// True if the elf pipeline has initialized and started splaying
