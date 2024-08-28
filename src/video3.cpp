@@ -194,7 +194,7 @@ void codeThreadProcessV(GoblinData &data) {
         std::string command = "python3 ";
         command += arguments;
         system(command.c_str()); 
-        cout << "created raw of " << i << endl;
+        cout << "created raw of " << n << endl;
 
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
