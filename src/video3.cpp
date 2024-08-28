@@ -122,6 +122,8 @@ void codeThreadBus(GstElement *pipeline, GoblinData &data, const std::string &pr
 void codeThreadProcessV(GoblinData &data) {
     using namespace std;
     using namespace cv;
+    int n = 0;
+    FaceDetector face_detector;
 
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
@@ -185,7 +187,6 @@ void codeThreadProcessV(GoblinData &data) {
         
         
         // Modify the frame: detect faces
-        FaceDetector face_detector;
         auto rectangles = face_detector.detect_face_rectangles(frame);
         Scalar color(0, 105, 205);
         for(const auto & r : rectangles)
@@ -202,6 +203,7 @@ void codeThreadProcessV(GoblinData &data) {
         // Copy the input packet timestamp
         bufferOut->pts = pts;
         GstFlowReturn ret = gst_app_src_push_buffer(GST_APP_SRC(data.elfSrcV), bufferOut);
+        n++;
     }
     // Send EOS to ELF
     gst_app_src_end_of_stream(GST_APP_SRC(data.elfSrcV));
