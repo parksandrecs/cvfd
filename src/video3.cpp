@@ -300,9 +300,9 @@ int main(int argc, char **argv){
     });
 
     //thread to create raw inputs for dlc networks
-    thread threadRaws(
+    thread threadRaws({
         codeThreadCreateRaws();
-    );
+    });
     // Wait for threads
     threadProcessV.join();
     threadBusGoblin.join();
