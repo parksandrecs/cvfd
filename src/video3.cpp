@@ -123,6 +123,7 @@ void codeThreadProcessV(GoblinData &data) {
     using namespace std;
     using namespace cv;
 
+    FaceDetector face_detector;
     for (;;) {
         // We wait until ELF wants data, but only if ELF is already started
         while (data.flagElfStarted && !data.flagRunV) 
@@ -174,7 +175,6 @@ void codeThreadProcessV(GoblinData &data) {
         // Copy data from the sample to cv::Mat()
         GstBuffer *bufferIn = gst_sample_get_buffer(sample);
         GstMapInfo mapIn;
-        FaceDetector face_detector;
         myAssert(gst_buffer_map(bufferIn, &mapIn, GST_MAP_READ));
         myAssert(mapIn.size == imW * imH * 3);
         // Don't forget the Timestamp
