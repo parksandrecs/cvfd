@@ -189,9 +189,9 @@ void codeThreadProcessV(GoblinData &data) {
         // Modify the frame: detect faces
         if(n%5==0 | n == 0)
         {
+             FaceDetector face_detector;
             auto rectangles = face_detector.detect_face_rectangles(frame);
             Scalar color(0, 105, 205);
-            FaceDetector face_detector;
             for(const auto & r : rectangles)
             {
                 rectangle(frame, r, color, 4);
