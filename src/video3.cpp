@@ -211,8 +211,7 @@ void codeThreadProcessV(GoblinData &data) {
 void codeThreadCreateRaws() {
     using namespace std;
     int i = 0;
-    while(i<n)
-    {
+
         //calling python script to convert cropped face to .raw file
         std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(i) + ".jpg -s 260";
         std::string command = "python3 ";
@@ -221,7 +220,7 @@ void codeThreadCreateRaws() {
         cout << "created raw of " << i << endl;
         i++;
 
-    }
+
     
 
 }
