@@ -231,7 +231,7 @@ int main(int argc, char **argv){
     // GStreamer can run as many pipelines as you wish (in different threads)
 
     // Set up GOBLIN (input) pipeline
-    string pipeStrGoblin = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0  ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
+    string pipeStrGoblin = "qtiqmmfsrc name=qmmf af-mode=3 ! video/x-raw, format=NV12, width=640,  height=480, framerate=30/1, camera=0 ! qtivtransform rotate=1 ! appsink name=goblin_sink max-buffers=2 sync=1 caps=video/x-raw,format=BGR";
     GError *err = nullptr;
     data.goblinPipeline = gst_parse_launch(pipeStrGoblin.c_str(), &err);
     checkErr(err);
