@@ -189,6 +189,12 @@ void codeThreadProcessV(GoblinData &data) {
         // Write to file!
         cv::imwrite("../../images/" + std::to_string(n) + ".jpg", frame);
         cout << "created jpg of " << n << endl;
+        //calling python script to convert cropped face to .raw file
+        std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(n) + ".jpg -s 260";
+        std::string command = "python3 ";
+        command += arguments;
+        system(command.c_str()); 
+        cout << "created raw of " << i << endl;
 
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
@@ -208,19 +214,15 @@ void codeThreadProcessV(GoblinData &data) {
 
 //======================================================================================================================
 /// Take frames from file and converts it to raw format to feed to dlc networks
-static void codeThreadCreateRaws() {
+static void codeThreadCreateRaws(int i) {
     using namespace std;
-    int i = 0;
-    while(i<10000)
-    {
-        //calling python script to convert cropped face to .raw file
-        std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(i) + ".jpg -s 260";
-        std::string command = "python3 ";
-        command += arguments;
-        system(command.c_str()); 
-        cout << "created raw of " << i << endl;
-        i++;
-    }
+    //calling python script to convert cropped face to .raw file
+    std::string arguments = "../../src/create_raws.py -d ../../raw/ -i ../../images/" + std::to_string(i) + ".jpg -s 260";
+    std::string command = "python3 ";
+    command += arguments;
+    system(command.c_str()); 
+    cout << "created raw of " << i << endl;
+
 }
 
 //======================================================================================================================
@@ -297,12 +299,13 @@ int main(int argc, char **argv){
     });
 
     //thread to create raw inputs for dlc networks
-    thread threadRaws(codeThreadCreateRaws);
+    //thread threadRaws(codeThreadCreateRaws);
 
     // Wait for threads
     threadProcessV.join();
     threadBusGoblin.join();
     threadBusElf.join();
+    //threadRaws.join();
 
     // Destroy the two pipelines
     gst_element_set_state(data.goblinPipeline, GST_STATE_NULL);
