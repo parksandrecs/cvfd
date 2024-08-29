@@ -131,7 +131,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create tee\n");
     return FALSE;
   }
-
+    std::cout << "134" << std::endl;
   // Create qtimlvconverter for Input preprocessing
   qtimlvconverter = gst_element_factory_make ("qtimlvconverter",
       "qtimlvconverter");
