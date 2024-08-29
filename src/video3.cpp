@@ -12,6 +12,12 @@
 #include <gst/app/gstappsrc.h>
 #include <gst/app/gstappsink.h>
 
+#include <tensors/tensor1.h>
+#include <tensors/tensor2.h>
+#include <tensors/tensor3.h>
+#include <tensors/tensor4.h>
+#include <tensors/operators.h>
+
 #include <opencv2/opencv.hpp>
 /// Global file counter
     int n = 0;
