@@ -1,33 +1,22 @@
-cmake_minimum_required(VERSION 3.0)
-project(cvfd LANGUAGES CXX)
+set(GST_EXAMPLE_BIN gst-ai-object-detection)
 
-add_executable(${PROJECT_NAME} src/video3.cpp src/FaceDetector.cpp)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
+add_executable(${GST_EXAMPLE_BIN}
+  main.cc
+)
 
-find_package(PkgConfig REQUIRED)
+target_include_directories(${GST_EXAMPLE_BIN} PRIVATE
+  ${GST_INCLUDE_DIRS}
+  ${CMAKE_SOURCE_DIR}
+)
 
-# GStreamer
-pkg_check_modules(GST REQUIRED gstreamer-1.0 gstreamer-audio-1.0 gstreamer-video-1.0  gstreamer-app-1.0)
-message("GST_INCLUDE_DIRS = ${GST_INCLUDE_DIRS}")
-message("GST_LIBRARY_DIRS = ${GST_LIBRARY_DIRS}")
-message("GST_LIBRARIES = ${GST_LIBRARIES}")
+target_link_libraries(${GST_EXAMPLE_BIN} PRIVATE
+  ${GST_LIBRARIES}
+)
 
-link_directories( ${GST_LIBRARY_DIRS}  )
-include_directories( ${GST_INCLUDE_DIRS}  )
-
-# OpenCV setup
-find_package(OpenCV REQUIRED)
-target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES} ${OpenCV_LIBS})
-target_include_directories(${PROJECT_NAME} PRIVATE include)
-
-
-# Introduce preprocessor variables to keep paths of asset files
-set(FACE_DETECTION_CONFIGURATION "${PROJECT_SOURCE_DIR}/assets/deploy.prototxt")
-set(FACE_DETECTION_WEIGHTS "${PROJECT_SOURCE_DIR}/assets/res10_300x300_ssd_iter_140000_fp16.caffemodel")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_CONFIGURATION="${FACE_DETECTION_CONFIGURATION}")
-target_compile_definitions(${PROJECT_NAME} PRIVATE FACE_DETECTION_WEIGHTS="${FACE_DETECTION_WEIGHTS}")
-
-
-
+install(
+  TARGETS ${GST_EXAMPLE_BIN}
+  RUNTIME DESTINATION ${GST_PLUGINS_QTI_OSS_INSTALL_BINDIR}
+  PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+              GROUP_EXECUTE GROUP_READ
+              WORLD_EXECUTE WORLD_READ
+)
