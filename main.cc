@@ -140,7 +140,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     return FALSE;
   }
 
-
+std::cout << "143" << std::endl;
   // Create the ML inferencing plugin SNPE/TFLITE
   if (ml_framework == GST_MODEL_TYPE_SNPE) {
     qtimlelement = gst_element_factory_make ("qtimlsnpe", "qtimlsnpe");
