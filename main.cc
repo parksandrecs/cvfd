@@ -133,6 +133,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
   }
     std::cout << "134" << std::endl;
   // Create qtimlvconverter for Input preprocessing
+  /** 
   qtimlvconverter = gst_element_factory_make ("qtimlvconverter",
       "qtimlvconverter");
       std::cout << "138" << std::endl;
@@ -140,10 +141,10 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qtimlvconverter\n");
     return FALSE;
   }
-
+*/
 std::cout << "143" << std::endl;
   // Create the ML inferencing plugin SNPE/TFLITE
-  /** 
+  
   if (ml_framework == GST_MODEL_TYPE_SNPE) {
     qtimlelement = gst_element_factory_make ("qtimlsnpe", "qtimlsnpe");
   } else {
@@ -153,7 +154,7 @@ std::cout << "143" << std::endl;
     g_printerr ("Failed to create qtimlelement\n");
     return FALSE;
   }
- */
+ 
   // Create plugin for ML postprocessing for object detection
   qtimlvdetection = gst_element_factory_make ("qtimlvdetection",
       "qtimlvdetection");
