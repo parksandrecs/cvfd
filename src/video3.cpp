@@ -196,7 +196,7 @@ void codeThreadProcessV(GoblinData &data) {
 
         // Don't forget to unmap the buffer and unref the sample
         gst_buffer_unmap(bufferIn, &mapIn);
-        gst_sample_unref(sample);
+
         
         /** 
         // Write to file!
