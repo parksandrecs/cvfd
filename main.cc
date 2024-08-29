@@ -153,7 +153,7 @@ std::cout << "143" << std::endl;
     g_printerr ("Failed to create qtimlelement\n");
     return FALSE;
   }
- */
+
   // Create plugin for ML postprocessing for object detection
   qtimlvdetection = gst_element_factory_make ("qtimlvdetection",
       "qtimlvdetection");
