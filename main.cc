@@ -113,7 +113,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qtivtransform\n");
     return FALSE;
   }
-    std::cout << "116" << std::endl;
+    
   // Create queue to decouple the processing on sink and source pad.
   for (gint i = 0; i < QUEUE_COUNT; i++) {
     snprintf (element_name, 127, "queue-%d", i);
@@ -123,7 +123,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
       return FALSE;
     }
   }
-
+std::cout << "126" << std::endl;
   // Use tee to send same data buffer
   // one for AI inferencing, one for Display composition
   tee = gst_element_factory_make ("tee", "tee");
