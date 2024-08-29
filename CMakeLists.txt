@@ -1,4 +1,4 @@
-set(GST_EXAMPLE_BIN gst-ai-object-detection)
+set(GST_EXAMPLE_BIN gst-ai-segmentation)
 
 add_executable(${GST_EXAMPLE_BIN}
   main.cc
