@@ -204,7 +204,6 @@ void codeThreadProcessV(GoblinData &data) {
 int main(int argc, char **argv) 
 {
     using namespace std;
-    cout << "VIDEO1 : Send video to appsink, display with cv::imshow()" << endl;
 
     // Init gstreamer
     gst_init(&argc, &argv);

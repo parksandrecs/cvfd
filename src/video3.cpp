@@ -16,7 +16,27 @@
 /// Global file counter
     int n = 0;
 
+//======================================================================================================================
+Tensor ConvertRGBBufferToInputTensor(gpointer buffer, gint cwidth, gint cheight, gint channel) {
 
+    Tensor input_tensor(tensorflow::DT_UINT8, tensorflow::TensorShape({1, cwidth, cheight, channel}));
+    auto input_tensor_mapped = input_tensor.tensor<uint8_t, 4>();
+
+    uint8_t * uintdata = (uint8_t*)buffer;
+
+    for (int y = 0; y < cheight; ++y) {
+        const uint8_t* source_row = uintdata + (y * cwidth * channel);
+        for (int x = 0; x < cwidth; ++x) {
+            const uint8_t* source_pixel = source_row + (x * channel);
+            for (int c = 0; c < channel; ++c) {
+                const uint8_t* source_value = source_pixel + c;
+                input_tensor_mapped(0, y, x, c) = *source_value;
+            }
+        }
+    }
+
+    return input_tensor;
+}
 //======================================================================================================================
 /// A simple assertion function + macro
 inline void myAssert(bool b, const std::string &s = "MYASSERT ERROR !") {
@@ -186,6 +206,7 @@ void codeThreadProcessV(GoblinData &data) {
         gst_buffer_unmap(bufferIn, &mapIn);
         gst_sample_unref(sample);
         
+        /** 
         // Write to file!
         cv::imwrite("../../images/" + std::to_string(n) + ".jpg", frame);
         cout << "created jpg of " << n << endl;
@@ -195,6 +216,7 @@ void codeThreadProcessV(GoblinData &data) {
         command += arguments;
         system(command.c_str()); 
         cout << "created raw of " << n << endl;
+        */
 
         // Create the output buffer and send it to elfSrc
         int bufferSize = frame.cols * frame.rows * 3;
