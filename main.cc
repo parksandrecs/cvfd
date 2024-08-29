@@ -153,8 +153,10 @@ create_pipe (GstAppContext * appctx, GstModelType model_type,
   }
 
   // Create qtimlvconverter for Input preprocessing
+  std::cout << "156" << std::endl;
   qtimlvconverter = gst_element_factory_make ("qtimlvconverter",
       "qtimlvconverter");
+      std::cout << "159" << std::endl;
   if (!qtimlvconverter) {
     g_printerr ("Failed to create qtimlvconverter\n");
     return FALSE;
