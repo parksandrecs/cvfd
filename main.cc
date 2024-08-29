@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <glib-unix.h>
 #include <gst/gst.h>
-
+#include<iostream>
 #include "include/gst_sample_apps_utils.h"
 
 /**
@@ -89,7 +89,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
   gint height = DEFAULT_CAMERA_OUTPUT_HEIGHT;
   gint framerate = DEFAULT_CAMERA_FRAME_RATE;
   gint module_id;
-
+    using namespace std;
   // 1. Create the elements or Plugins
   // Create qtiqmmfsrc plugin for camera stream
   qtiqmmfsrc = gst_element_factory_make ("qtiqmmfsrc", "qtiqmmfsrc");
