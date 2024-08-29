@@ -104,7 +104,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qmmfsrc_caps\n");
     return FALSE;
   }
-    std::cout << "107" << std::endl;
+
   // Create qtivtransform to convert UBWC Buffers to Non-UBWC buffers
   // for fpsdisplaysink
   qtivtransform = gst_element_factory_make ("qtivtransform",
@@ -113,7 +113,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qtivtransform\n");
     return FALSE;
   }
-
+    std::cout << "116" << std::endl;
   // Create queue to decouple the processing on sink and source pad.
   for (gint i = 0; i < QUEUE_COUNT; i++) {
     snprintf (element_name, 127, "queue-%d", i);
