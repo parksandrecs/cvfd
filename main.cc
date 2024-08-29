@@ -97,7 +97,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qtiqmmfsrc\n");
     return FALSE;
   }
-
+  cout << "100" << endl;
   // Use capsfilter to define the camera output settings
   qmmfsrc_caps = gst_element_factory_make ("capsfilter", "qmmfsrc_caps");
   if (!qmmfsrc_caps) {
@@ -197,6 +197,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
   appctx->plugins = g_list_append (appctx->plugins, tee);
   appctx->plugins = g_list_append (appctx->plugins, qtimlvconverter);
   appctx->plugins = g_list_append (appctx->plugins, qtimlelement);
+  cout << "200" << endl;
   appctx->plugins = g_list_append (appctx->plugins, qtimlvdetection);
   appctx->plugins = g_list_append (appctx->plugins, detection_filter);
   appctx->plugins = g_list_append (appctx->plugins, qtivcomposer);
@@ -291,6 +292,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
         g_object_set (G_OBJECT (qtimlvdetection), "results", 10, NULL);
         break;
 
+      cout << "300" << endl;
       // Set YoloNas specific settings
       case GST_YOLO_TYPE_NAS:
         g_object_set (G_OBJECT (qtimlelement), "model", model_path, NULL);
@@ -392,6 +394,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     goto error;
   }
 
+  cout << "400" << endl;
   ret = gst_element_link_many (tee, queue[2], qtivcomposer, NULL);
   if (!ret) {
     g_printerr ("Pipeline elements cannot be linked for tee->qtivcomposer.\n");
@@ -491,6 +494,7 @@ main (gint argc, gchar * argv[])
       DEFAULT_TFLITE_YOLOV8_MODEL "\n",
       "/PATH"
     },
+     cout << "500" << endl;
     { "labels", 'l', 0, G_OPTION_ARG_STRING,
       &labels_path,
       "This is an optional parameter and overrides default path\n"
@@ -593,6 +597,7 @@ main (gint argc, gchar * argv[])
     return -EINVAL;
   }
 
+  cout << "600" << endl;
   if (!file_exists (labels_path)) {
     g_print ("Invalid labels file path: %s\n", labels_path);
     return -EINVAL;
@@ -692,4 +697,6 @@ error:
   gst_deinit ();
 
   return 0;
+cout << "700" << endl;
 }
+
