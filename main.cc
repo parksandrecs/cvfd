@@ -198,7 +198,7 @@ std::cout << "143" << std::endl;
   appctx->plugins = g_list_append (appctx->plugins, qmmfsrc_caps);
   appctx->plugins = g_list_append (appctx->plugins, qtivtransform );
   appctx->plugins = g_list_append (appctx->plugins, tee);
-  appctx->plugins = g_list_append (appctx->plugins, qtimlvconverter);
+  //appctx->plugins = g_list_append (appctx->plugins, qtimlvconverter);
   appctx->plugins = g_list_append (appctx->plugins, qtimlelement);
   std::cout << "200" << std::endl;
   appctx->plugins = g_list_append (appctx->plugins, qtimlvdetection);
