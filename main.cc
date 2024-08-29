@@ -104,7 +104,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qmmfsrc_caps\n");
     return FALSE;
   }
-
+    std::cout << "107" << std::endl;
   // Create qtivtransform to convert UBWC Buffers to Non-UBWC buffers
   // for fpsdisplaysink
   qtivtransform = gst_element_factory_make ("qtivtransform",
