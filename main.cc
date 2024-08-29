@@ -97,7 +97,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     g_printerr ("Failed to create qtiqmmfsrc\n");
     return FALSE;
   }
-  std::cout << "100" << endl;
+  std::cout << "100" << std::endl;
   // Use capsfilter to define the camera output settings
   qmmfsrc_caps = gst_element_factory_make ("capsfilter", "qmmfsrc_caps");
   if (!qmmfsrc_caps) {
@@ -197,7 +197,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
   appctx->plugins = g_list_append (appctx->plugins, tee);
   appctx->plugins = g_list_append (appctx->plugins, qtimlvconverter);
   appctx->plugins = g_list_append (appctx->plugins, qtimlelement);
-  std::cout << "200" << endl;
+  std::cout << "200" << std::endl;
   appctx->plugins = g_list_append (appctx->plugins, qtimlvdetection);
   appctx->plugins = g_list_append (appctx->plugins, detection_filter);
   appctx->plugins = g_list_append (appctx->plugins, qtivcomposer);
@@ -292,7 +292,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
         g_object_set (G_OBJECT (qtimlvdetection), "results", 10, NULL);
         break;
 
-      std::cout << "300" << endl;
+      std::cout << "300" << std::endl;
       // Set YoloNas specific settings
       case GST_YOLO_TYPE_NAS:
         g_object_set (G_OBJECT (qtimlelement), "model", model_path, NULL);
@@ -394,7 +394,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     goto error;
   }
 
-  std::cout << "400" << endl;
+  std::cout << "400" << std::endl;
   ret = gst_element_link_many (tee, queue[2], qtivcomposer, NULL);
   if (!ret) {
     g_printerr ("Pipeline elements cannot be linked for tee->qtivcomposer.\n");
@@ -471,7 +471,7 @@ main (gint argc, gchar * argv[])
   setenv ("XDG_RUNTIME_DIR", "/dev/socket/weston", 0);
   setenv ("WAYLAND_DISPLAY", "wayland-1", 0);
 
-    std::cout << "500" << endl;
+    std::cout << "500" << std::endl;
   // Structure to define the user options selection
   GOptionEntry entries[] = {
     { "model-type", 't', 0, G_OPTION_ARG_INT,
@@ -597,7 +597,7 @@ main (gint argc, gchar * argv[])
     return -EINVAL;
   }
 
-  std::cout << "600" << endl;
+  std::cout << "600" << std::endl;
   if (!file_exists (labels_path)) {
     g_print ("Invalid labels file path: %s\n", labels_path);
     return -EINVAL;
@@ -697,6 +697,6 @@ error:
   gst_deinit ();
 
   return 0;
-std::cout << "700" << endl;
+std::cout << "700" << std::endl;
 }
 
