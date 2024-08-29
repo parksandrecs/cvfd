@@ -191,12 +191,11 @@ void codeThreadProcessV(GoblinData &data) {
         for(const auto & r : rectangles){
             cv::rectangle(frame, r, color, 4);
         }
-        cv::imshow("frame", frame);
         int key = cv::waitKey(1);
 
         // Don't forget to unmap the buffer and unref the sample
         gst_buffer_unmap(bufferIn, &mapIn);
-
+        gst_sample_unref(sample);
         
         /** 
         // Write to file!
