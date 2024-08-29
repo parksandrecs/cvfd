@@ -183,6 +183,7 @@ void codeThreadProcessV(GoblinData &data) {
         uint64_t pts = bufferIn->pts;
         // Clone to be safe, we don't want to modify the input buffer
         Mat frame = Mat(imH, imW, CV_8UC3, (void *) mapIn.data).clone();
+        
         FaceDetector face_detector;
         // Wrap the raw data in OpenCV frame and show on screen
         cv::Mat frame(imH, imW, CV_8UC3, (void *) m.data);
@@ -196,7 +197,7 @@ void codeThreadProcessV(GoblinData &data) {
         int key = cv::waitKey(1);
 
         // Don't forget to unmap the buffer and unref the sample
-        gst_buffer_unmap(buffer, &m);
+        gst_buffer_unmap(bufferIn, &mapIn);
         gst_sample_unref(sample);
         
         /** 
