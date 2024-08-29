@@ -43,8 +43,8 @@
  * Default settings of camera output resolution, Scaling of camera output
  * will be done in qtimlvconverter based on model input
  */
-#define DEFAULT_CAMERA_OUTPUT_WIDTH 640
-#define DEFAULT_CAMERA_OUTPUT_HEIGHT 480
+#define DEFAULT_CAMERA_OUTPUT_WIDTH 1920
+#define DEFAULT_CAMERA_OUTPUT_HEIGHT 1080
 #define DEFAULT_CAMERA_FRAME_RATE 30
 
 /**
@@ -134,7 +134,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
     std::cout << "134" << std::endl;
   // Create qtimlvconverter for Input preprocessing
   qtimlvconverter = gst_element_factory_make ("qtimlvconverter",
-      "qtimlvconverter");
+      "qtimlvconverter",);
       std::cout << "138" << std::endl;
   if (!qtimlvconverter) {
     g_printerr ("Failed to create qtimlvconverter\n");
