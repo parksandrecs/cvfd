@@ -123,7 +123,7 @@ create_pipe (GstAppContext * appctx, GstYoloModelType model_type,
       return FALSE;
     }
   }
-std::cout << "126" << std::endl;
+
   // Use tee to send same data buffer
   // one for AI inferencing, one for Display composition
   tee = gst_element_factory_make ("tee", "tee");
@@ -131,7 +131,7 @@ std::cout << "126" << std::endl;
     g_printerr ("Failed to create tee\n");
     return FALSE;
   }
-
+std::cout << "126" << std::endl;
   // Create qtimlvconverter for Input preprocessing
   qtimlvconverter = gst_element_factory_make ("qtimlvconverter",
       "qtimlvconverter");
