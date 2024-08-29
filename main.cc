@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <glib-unix.h>
 #include <gst/gst.h>
+#include<iostream>
 
 #include "include/gst_sample_apps_utils.h"
 
